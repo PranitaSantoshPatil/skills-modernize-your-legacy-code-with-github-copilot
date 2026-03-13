@@ -75,3 +75,44 @@ async function main() {
 }
 
 main();
+  }
+}
+
+function viewBalance() {
+  console.log(`Current balance: ${app.getBalance().toFixed(2).padStart(9, '0')}`);
+  showMenu();
+}
+
+function creditAccount() {
+  rl.question('Enter amount to credit: ', (amount) => {
+    if (app.credit(amount)) {
+      console.log('Account credited successfully.');
+    } else {
+      console.log('Invalid amount. Must be positive.');
+    }
+    showMenu();
+  });
+}
+
+function debitAccount() {
+  rl.question('Enter amount to debit: ', (amount) => {
+    if (app.debit(amount)) {
+      console.log('Account debited successfully.');
+    } else if (parseFloat(amount) > app.getBalance()) {
+      console.log('Insufficient funds.');
+    } else {
+      console.log('Invalid amount. Must be positive.');
+    }
+    showMenu();
+  });
+}
+
+function exitApp() {
+  console.log(app.exit());
+  rl.close();
+}
+
+showMenu();
+
+module.exports = { AccountingApp };
+>>>>>>> 791818b2dabda6824077aec8d3de2a505be1d290
